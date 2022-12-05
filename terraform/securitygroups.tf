@@ -47,3 +47,24 @@ resource "aws_security_group" "load-balancer" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 }
+
+# RDS Security Group (traffic anywhere -> RDS)
+resource "aws_security_group" "rds" {
+  name        = "rds-security-group"
+  description = "Allows inbound access from ECS only"
+  vpc_id      = aws_vpc.development-vpc.id
+
+  ingress {
+    protocol    = "tcp"
+    from_port   = "5432"
+    to_port     = "5432"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  egress {
+    protocol    = "-1"
+    from_port   = 0
+    to_port     = 0
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+}

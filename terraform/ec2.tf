@@ -14,6 +14,6 @@ resource "aws_instance" "dev_node" {
     volume_size = 10
   }
 
-  user_data = file("userdata.tpl")
+  user_data                   = file("userdata.tpl")
   associate_public_ip_address = true
 } 

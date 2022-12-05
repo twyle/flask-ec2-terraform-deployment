@@ -47,3 +47,12 @@ resource "aws_route_table_association" "public_subnet_ass" {
   subnet_id      = element(aws_subnet.public_subnets[*].id, count.index)
   route_table_id = aws_route_table.public-route-table.id
 }
+
+resource "aws_db_subnet_group" "production" {
+  name       = "main"
+  subnet_ids = [aws_subnet.public_subnets[0].id, aws_subnet.public_subnets[1].id]
+
+  tags = {
+    Name = "My DB subnet group"
+  }
+}
